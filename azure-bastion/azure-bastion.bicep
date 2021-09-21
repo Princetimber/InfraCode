@@ -8,7 +8,7 @@ param bastionSubnet object = {
   subnet:[
     {
       name:'azureBastionSubnet'
-      addressPrefix:'10.0.1.0/26'
+      addressPrefix:'10.0.1.0/26' // specify bastion IpAddress Range
     }
   ]
 }
