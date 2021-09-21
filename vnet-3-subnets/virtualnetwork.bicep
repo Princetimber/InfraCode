@@ -7,23 +7,23 @@ param vnetSettings object = {
   addressPrefixes:[
     {
       name:'IpAddressPrefix'
-      addressPrefix:'10.0.0.0/16'
+      addressPrefix:'10.0.0.0/16'//specify virtualNetworks IpAddress Range
     }
   ]
 }
 param subnets array = [
     {
       name:'gatewaySubnet'
-      addressPrefix:'10.0.0.0/27'
+      addressPrefix:'10.0.0.0/27'//specify gatewaySubnet IpAddress Range
 
     }
     {
       name:'subnet1'
-      addressPrefix:'10.1.1.0/24'
+      addressPrefix:'10.1.1.0/24'//specify subnet1 IpAddress Range
     }
     {
       name:'subnet2'
-      addressPrefix:'10.1.2.0/24'
+      addressPrefix:'10.1.2.0/24'//specify subnet2 IpAddress Range
     }
 
 ]
