@@ -3,7 +3,9 @@ module nsgdeploy 'nsg.bicep' = {
   params: {
     destinationAddressPrefix:''//specify PublicIpAddress
     sourceAddressPrefixes:[
-
-    ]// Specify Private IpAddress space on Local network
+      ''
+      ''
+      ''
+    ]// Specify Private IpAddress space on Local network using CIDR notation
   }
 }

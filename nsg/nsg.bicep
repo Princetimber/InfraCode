@@ -106,9 +106,6 @@ resource nsg 'Microsoft.Network/networkSecurityGroups@2021-02-01' ={
 }
 resource allowRdpInbound_rule 'Microsoft.Network/networkSecurityGroups/securityRules@2021-02-01'= {
   name:allowRdpInbound
-  dependsOn:[
-    nsg
-  ]
   properties:{
     access: 'Allow'
     direction: 'Inbound'
@@ -120,6 +117,9 @@ resource allowRdpInbound_rule 'Microsoft.Network/networkSecurityGroups/securityR
     destinationAddressPrefix:'VirtualNetwork'
     destinationPortRange:'3360-3400'
   }
+  dependsOn:[
+    nsg
+  ]
 }
 resource allowWinRMInbound_rule 'Microsoft.Network/networkSecurityGroups/securityRules@2021-02-01' = {
   name:allowWinRMInbound
@@ -140,9 +140,9 @@ resource allowWinRMInbound_rule 'Microsoft.Network/networkSecurityGroups/securit
 }
 resource allowhttpsInbound_rule 'Microsoft.Network/networkSecurityGroups/securityRules@2021-02-01'={
   name:allowHttpsInbound
-  dependsOn:[
-    nsg
-  ]
+ dependsOn:[
+   nsg
+ ]
   properties:{
      access: 'Allow'
      description:'Allow_Https_Inbound'
@@ -208,4 +208,3 @@ resource allowWinRMOutbound_rule 'Microsoft.Network/networkSecurityGroups/securi
 }
 output nsgname string = nsg.name
 output nsgId string = nsg.id
-
