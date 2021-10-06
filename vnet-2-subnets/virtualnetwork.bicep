@@ -5,52 +5,20 @@ param vnetSettings object = {
   name:'${toLower(resourceGroup().name)}${vnetnameSuffix}'
   location: resourceGroup().location
   addressPrefixes:[
-    {
-      name:'IpAddressPrefix'
-      addressPrefix:'10.0.0.0/16'//specify virtualNetworks IpAddress Range
-    }
+    '172.16.0.0/16'//specify virtualNetworks IpAddress Range
   ]
 }
 param subnets array = [
     {
-      name:'gatewaySubnet'
-      addressPrefix:'10.0.0.0/27'//specify gatewaySubnet IpAddress Range
-
-    }
-    {
       name:'subnet1'
-      addressPrefix:'10.1.1.0/24'//specify subnet1 IpAddress Range
+      addressPrefix:'172.16.1.0/24'//specify subnet1 IpAddress Range
     }
     {
       name:'subnet2'
-      addressPrefix:'10.1.2.0/24'//specify subnet2 IpAddress Range
+      addressPrefix:'172.16.2.0/24'//specify subnet2 IpAddress Range
     }
 
 ]
-var subnetSetttings =[for subnet in subnets:{
-  name: subnet.name
-  properties:{
-    addressPrefix:subnet.addressPrefix
-    natGateway:{
-      id:natgwId
-    }
-    networkSecurityGroup:{
-      id:nsgId
-    }
-    serviceEndpoints:[
-      {
-        service:'Microsoft.storage'
-      }
-      {
-        service:'Microsoft.KeyVault'
-      }
-      {
-        service:'Microsoft.AzureActiveDirectory'
-      }
-    ]
-
-  }
-}]
 var nsgname = '${toLower(resourceGroup().name)}${nsgSuffix}'
 resource nsg 'Microsoft.Network/networkSecurityGroups@2021-02-01' existing = {
   name:nsgname
@@ -71,8 +39,32 @@ resource vnet 'Microsoft.Network/virtualNetworks@2021-02-01' = {
     addressSpace:{
       addressPrefixes:vnetSettings.addressPrefixes
     }
-    subnets:subnetSetttings
+    subnets:[for subnet in subnets: {
+      name:subnet.name
+      properties:{
+        addressPrefix:subnet.addressPrefix
+        networkSecurityGroup:{
+          id:nsgId
+        }
+        natGateway:{
+          id:natgwId
+        }
+        serviceEndpoints:[
+          {
+            service:'Microsoft.storage'
+          }
+          {
+            service:'Microsoft.keyvault'
+          }
+          {
+            service:'Microsoft.AzureActiveDirectory'
+          }
+        ]
+      }
+    }]
     enableDdosProtection: false
     enableVmProtection:false
   }
 }
+output networkname string = vnet.name
+output networkId string = vnet.id
