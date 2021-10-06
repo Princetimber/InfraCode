@@ -33,3 +33,4 @@ resource natgateways 'Microsoft.Network/natGateways@2021-02-01' = {
   }
 }
 output natgatewayId string = natgateways.id
+output natgatewayname string = natgateways.name
