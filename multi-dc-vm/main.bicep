@@ -9,6 +9,6 @@ module domainController 'dc.bicep' = {
     adminPassword: vault.getSecret('SecPass')
     adminUsername:'localadmin'
     virtualmachineCount:2
-    virtualMachineExtensionCustomScriptUri:''//Enter Uri for Github Raw Script
+    virtualMachineExtensionCustomScriptUri:'https://raw.githubusercontent.com/Princetimber/InfraCode/main/multi-dc-vm/config.ps1'//Enter Uri for Github Raw Script
   }
 }
