@@ -73,7 +73,7 @@ resource vaults 'Microsoft.KeyVault/vaults@2021-06-01-preview' existing = {
 }
 var vaultId = vaults.id
 var vaultUri = vaults.properties.vaultUri
-var certificateUrl = '${vaultUri}/secrets/FTSCERT/216d00068f504969924e9f1dc3d99e25'//Specify key Version
+var certificateUrl = '${vaultUri}secrets/FTSCERT/216d00068f504969924e9f1dc3d99e25'//Specify key Version
 
 resource ppgrp 'Microsoft.Compute/proximityPlacementGroups@2021-04-01' = {
   name:proximityPlacementGroupName
@@ -97,6 +97,9 @@ resource avset 'Microsoft.Compute/availabilitySets@2021-04-01' = {
     proximityPlacementGroup:{
       id:ppgrp.id
     }
+  }
+  sku:{
+    name:'Aligned'
   }
 }
 resource vmnic 'Microsoft.Network/networkInterfaces@2021-02-01' = [for i in virtualMachineCountRange: {
@@ -193,7 +196,7 @@ resource virtualmachine 'Microsoft.Compute/virtualMachines@2021-04-01' = [for i 
           managedDisk:{
             storageAccountType:storageAccountType
           }
-          name:'${virtualMachineName}{i+1}_datadisk'
+          name:'${virtualMachineName}${i+1}_datadisk'
         }
       ]
       imageReference:{
@@ -227,7 +230,7 @@ resource virtualMachineExtensions 'Microsoft.Compute/virtualMachines/extensions@
   name:'${virtualMachineName}${i+1}/config-app'
   location:location
   properties:{
-    publisher:'Microsft.Compute'
+    publisher:'Microsoft.Compute'
     type:'CustomScriptExtension'
     typeHandlerVersion:'1.10'
     autoUpgradeMinorVersion:true
@@ -238,5 +241,8 @@ resource virtualMachineExtensions 'Microsoft.Compute/virtualMachines/extensions@
       commandToExecute:'powerShell -ExecutionPolicy ByPass -file ./${last(split(virtualMachineExtensionCustomScriptUri,'/'))}'
     }
   }
+  dependsOn:[
+    virtualmachine
+  ]
 
 }]
