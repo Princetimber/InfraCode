@@ -67,7 +67,7 @@ if(!$volume){
 $names = @('Logs','NTDS','SYSVOL')
 foreach($n in $names){
   $testPath = Test-Path -LiteralPath (Join-Path -Path E:\ -ChildPath $n)
-  if($testPath){
+  if(!$testPath){
     try {
       New-Item -Name $n -Path E:\ -ItemType Directory | %{$_.Attributes = 'hidden'}
     }
