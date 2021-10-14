@@ -68,6 +68,13 @@ $names = @('Logs','NTDS','SYSVOL')
 foreach($n in $names){
   $testPath = Test-Path -LiteralPath (Join-Path -Path E:\ -ChildPath $n)
   if($testPath){
-    New-Item -Name $n -Path E:\ -ItemType Directory | %{$_.Attributes = 'hidden'}
+    try {
+      New-Item -Name $n -Path E:\ -ItemType Directory | %{$_.Attributes = 'hidden'}
+    }
+    catch {
+      Write-Error -Message "Path Exists"
+    }
+  }else {
+    Write-Verbose -Message "Path already Exists" -Verbose
   }
 }
