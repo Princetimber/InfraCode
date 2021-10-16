@@ -23,7 +23,7 @@ resource PublicIpAddress 'Microsoft.Network/publicIPAddresses@2021-02-01' = {
   location:location
   sku:{
     name:'Basic'
-    tier:'Global'
+    tier:'Regional'
   }
   properties:{
     idleTimeoutInMinutes:4
