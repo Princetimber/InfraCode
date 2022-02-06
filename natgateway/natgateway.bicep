@@ -1,5 +1,5 @@
-param natgatewayNamesuffix string = 'natgw'
-param pubIpNameSuffix string = 'pubIp'
+param natgatewayNamesuffix string
+param pubIpNameSuffix string 
 var pubIpName = '${toLower(resourceGroup().name)}${pubIpNameSuffix}'
 var natgatewayName = '${toLower(resourceGroup().name)}${natgatewayNamesuffix}'
 resource pubIp 'Microsoft.Network/publicIPAddresses@2021-02-01' = {

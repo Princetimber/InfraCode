@@ -3,7 +3,7 @@ targetScope = 'subscription'
 module rg 'resourcegrp.bicep' = {
   name: 'deployresourcegroup'
   params: {
-    name:'devlabftsuksrg'
+    name:'labuksrg'
   }
   scope:subscription()
 }

@@ -1,7 +1,7 @@
 module stga 'storage.bicep' = {
   name: 'deploystorage'
   params: {
-    publicIpAddress: ''
+    publicIpAddress: '62.31.74.157'
   }
 }
 output name string = stga.outputs.name

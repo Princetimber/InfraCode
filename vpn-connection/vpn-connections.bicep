@@ -2,11 +2,11 @@
 param sharedKey string
 
 @description('specify vpn connection name')
-param connectionName string = 'cloud-2-on-Prem'
+param connectionName string
 
 param location string = resourceGroup().location
-param vnetgwNameSuffix string = 'vnetgw'
-param localnetgwNameSuffix string = 'locnetgw'
+param vnetgwNameSuffix string
+param localnetgwNameSuffix string 
 var vnetgwName = '${toLower(resourceGroup().name)}${vnetgwNameSuffix}'
 var localNetgwname = '${toLower(resourceGroup().name)}${localnetgwNameSuffix}'
 resource vnetgw 'Microsoft.Network/virtualNetworkGateways@2021-02-01' existing = {

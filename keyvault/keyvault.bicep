@@ -1,5 +1,5 @@
-param suffix string = 'keyvault'
-param vnetsuffix string = 'vnet'
+param suffix string
+param vnetsuffix string
 param objectId string //AAD User objectId
 param pubIpAddress string //Specify Public ipaddress space
 param location string = resourceGroup().location

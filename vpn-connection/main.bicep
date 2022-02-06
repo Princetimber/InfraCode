@@ -1,6 +1,9 @@
 module connections 'vpn-connections.bicep' = {
   name: 'DeployVpnConnection'
-  params: {
-    sharedKey: ''
+  params:{
+    localnetgwNameSuffix: 'localnetgw'
+    vnetgwNameSuffix: 'vnetgw'
+    connectionName:'cloud2vpn'
+    sharedKey:''
   }
 }

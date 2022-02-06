@@ -1,14 +1,14 @@
 @description('specify virtual network gateway name suffix')
-param vnetGatewayNameSuffix string = 'vnetgw'
+param vnetGatewayNameSuffix string
 
 @description('Specify PublicIpAddress name')
-param pubIpAddressname string = 'PubIp'
+param pubIpAddressname string
 
 @description('specify default resource location')
 param location string = resourceGroup().location
 
 @description('specify virtualNetwork name suffix')
-param vnetNameSuffix string = 'vnet'
+param vnetNameSuffix string 
 
 var vnetName = '${toLower(resourceGroup().name)}${vnetNameSuffix}'
 var vnetgwname = '${toLower(resourceGroup().name)}${vnetGatewayNameSuffix}'
