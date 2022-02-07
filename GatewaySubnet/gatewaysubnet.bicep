@@ -1,5 +1,5 @@
-param name string = 'gatewaySubnet'
-param addressPrefix string = '172.16.25.0/27'
+param name string 
+param addressPrefix string
 param serviceEndpoints array = [
   {
     Service:'Microsoft.Storage'
