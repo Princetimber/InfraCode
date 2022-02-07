@@ -2,7 +2,7 @@
 param gatewayPublicIpAddress string
 
 @description('specify gateway name suffix')
-param gatewayNameSuffix string = 'locnetgw'
+param gatewayNameSuffix string
 
 @description('specify resource location')
 param location string = resourceGroup().location
