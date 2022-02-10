@@ -6,7 +6,7 @@ resource vault 'Microsoft.KeyVault/vaults@2021-06-01-preview' existing = {
 module linux 'Linux-vm.bicep' = {
   name: 'linux'
   params: {
-    adminpass: vault.getSecret('sshKey') // TODO: change this to ssh key in keyvault
+    adminpass: vault.getSecret('') // TODO: change this to ssh key in keyvault
     adminuser:''// TODO: add admin user
     privateIpAddress: ''// TODO: add private ip
     sku:'' // TODO: add sku e.g. '18_04-lts-gen2'
