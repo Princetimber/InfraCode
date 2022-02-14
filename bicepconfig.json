@@ -49,9 +49,6 @@
 				"simplify-interpolation": {
 					"level": "warning"
 				},
-				"use-protectedsettings-for-commandtoexecute-secrets": {
-					"level": "error"
-				},
 				"use-stable-vm-image": {
 					"level": "warning"
 				}
