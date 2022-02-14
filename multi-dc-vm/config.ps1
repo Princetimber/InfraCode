@@ -17,7 +17,7 @@ if(!$storagePool){
 }else {
   Write-Verbose -Message "StoragePool already exists." -Verbose
 }
-$virtualDisks = Get-VirtualDisk |? FriendlyName -Like VirtualHD
+$virtualDisks = Get-VirtualDisk |Where-Object FriendlyName -Like VirtualHD
 if(!$virtualDisks){
   try {
     $vhdFriendlyName = 'VIRTUALHD'
@@ -40,10 +40,10 @@ if(!$virtualDisks){
 }else {
   Write-Verbose -Message "virtualDisk already exists." -Verbose
 }
-$volume = Get-Volume | ? DriveLetter -EQ E
+$volume = Get-Volume | Where-Object DriveLetter -EQ E
 if(!$volume){
   try {
-    $diskNumber = (Get-VirtualDisk |? FriendlyName -Like VirtualHD | Get-Disk).Number
+    $diskNumber = (Get-VirtualDisk |Where-Object FriendlyName -Like VirtualHD | Get-Disk).Number
     Initialize-Disk -Number $diskNumber -PartitionStyle GPT
     $param = @{
     DiskNumber = $diskNumber
@@ -69,7 +69,7 @@ foreach($n in $names){
   $testPath = Test-Path -LiteralPath (Join-Path -Path E:\ -ChildPath $n)
   if(!$testPath){
     try {
-      New-Item -Name $n -Path E:\ -ItemType Directory | %{$_.Attributes = 'hidden'}
+      New-Item -Name $n -Path E:\ -ItemType Directory | ForEach-Object{$_.Attributes = 'hidden'}
     }
     catch {
       Write-Error -Message "Path Exists"
