@@ -1,5 +1,6 @@
 param vmname string
 param adminuser string
+param location string = resourceGroup().location
 @secure()
 param adminpass string
 param sku string
@@ -29,7 +30,6 @@ param proximityPlacementGroupNameSuffix string = 'ppgrp'
 param networkInterfacenameSuffix string = 'nic'
 param virtualNetworkNameSuffix string = 'vnet'
 param storageAccountNameSuffix string = 'stga'
-var location = resourceGroup().location
 var vmnic = '${vmname}${networkInterfacenameSuffix}'
 var vnetname = '${toLower(resourceGroup().name)}${virtualNetworkNameSuffix}'
 resource virtualnetworks 'Microsoft.Network/virtualNetworks@2021-05-01' existing = {
