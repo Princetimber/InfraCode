@@ -1,7 +1,7 @@
 module vnetgw 'vnet-gateway.bicep' = {
   name: 'DeployVnetgateways'
   params:{
-    vnetGatewayNameSuffix: 'vnetgw'
+    vnetGatewayNameSuffix: 'vpngateway'
     vnetNameSuffix: 'vnet'
     pubIpAddressname:'pubip'
   }

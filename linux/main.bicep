@@ -1,4 +1,4 @@
-param vaultnamesuffix string = 'keyvault'
+param vaultnamesuffix string = 'keystore'
 var vaultname = '${toLower(resourceGroup().name)}${vaultnamesuffix}'
 resource vault 'Microsoft.KeyVault/vaults@2021-06-01-preview' existing = {
   name: vaultname
@@ -6,10 +6,10 @@ resource vault 'Microsoft.KeyVault/vaults@2021-06-01-preview' existing = {
 module linux 'Linux-vm.bicep' = {
   name: 'linux'
   params: {
-    adminpass: vault.getSecret('') // TODO: change this to ssh key in keyvault
+    adminpass: vault.getSecret('sshkeys') // TODO: change this to ssh key in keyvault
     adminuser:''// TODO: add admin user
     privateIpAddress: ''// TODO: add private ip
-    sku:'' // TODO: add sku e.g. '18_04-lts-gen2'
+    sku:'18_04-lts-gen2' // TODO: add sku e.g. '18_04-lts-gen2'
     vmname:''// TODO: add vm name
   }
 }

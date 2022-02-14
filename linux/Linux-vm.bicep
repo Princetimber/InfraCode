@@ -22,7 +22,7 @@ param diskSizeGB int = 100
   'Standard_D2_v3'
   'Standard_D2s_v3'
 ])
-param vmSize string = 'Standard_D2_v2'
+param vmSize string = 'Standard_D2s_v3'
 param privateIpAddress string
 param availabilitySetsNameSuffix string = 'avset'
 param proximityPlacementGroupNameSuffix string = 'ppgrp'
@@ -37,7 +37,7 @@ resource virtualnetworks 'Microsoft.Network/virtualNetworks@2021-05-01' existing
 }
 var vnetid = virtualnetworks.id
 var subnetId = '${vnetid}/subnets/subnet1'
-var storageaccountname = '${toLower(resourceGroup().id)}${storageAccountNameSuffix}'
+var storageaccountname = '${uniqueString(resourceGroup().id)}${storageAccountNameSuffix}'
 resource storageaccounts 'Microsoft.Storage/storageAccounts@2021-06-01' existing = {
   name: storageaccountname
 }
@@ -109,8 +109,8 @@ resource virtualmachine 'Microsoft.Compute/virtualMachines@2021-07-01' = {
         disablePasswordAuthentication:true
         provisionVMAgent:true
         patchSettings:{
-          assessmentMode:'AutomaticByPlatform'
-          patchMode:'AutomaticByPlatform'
+          assessmentMode:'ImageDefault'
+          patchMode:'ImageDefault'
         }
         ssh:{
           publicKeys:[

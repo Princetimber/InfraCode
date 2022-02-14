@@ -1,11 +1,11 @@
 @description('Specify Secret Name')
-param secretname string = 'SecPass'
+param secretname string
 
 @description('Specify secure secretvalue')
 @secure()
 param secretvalue string
 
-param keyvaultnamesuffix string = 'keyvault'
+param keyvaultnamesuffix string = 'keystore'
 var keyvaultname = '${toLower(resourceGroup().name)}${keyvaultnamesuffix}'
 resource keyvault 'Microsoft.KeyVault/vaults@2021-06-01-preview' existing = {
   name: keyvaultname

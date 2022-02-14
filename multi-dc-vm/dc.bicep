@@ -44,7 +44,7 @@ param availabilitySetNameSuffix string = 'avset'
 param proximityPlacementGroupNameSuffix string = 'ppgrp'
 param virtualNetworkNameSuffix string = 'vnet'
 param storageAccountNamePreffix string = 'stga'
-param keyvaultNameSuffix string = 'keyVault'
+param vaultNameSuffix string = 'keystore'
 param networkInterfaceNameSuffix string = '-nic'
 param licenseType string = 'Windows_Server'
 param publisher string = 'MicrosoftWindowsServer'
@@ -56,8 +56,14 @@ var virtualMachineCountRange = range(0,virtualmachineCount)
 var availabilitySetName = '${toLower(resourceGroup().name)}${availabilitySetNameSuffix}'
 var proximityPlacementGroupName = '${toLower(resourceGroup().name)}${proximityPlacementGroupNameSuffix}'
 var virtualNetworkName = '${toLower(resourceGroup().name)}${virtualNetworkNameSuffix}'
-var storageAccountName = '${storageAccountNamePreffix}${uniqueString(resourceGroup().id)}'
-var vaultName = '${toLower(resourceGroup().name)}${keyvaultNameSuffix}'
+var storageAccountName = '${uniqueString(resourceGroup().id)}${storageAccountNamePreffix}'
+var vaultName = '${toLower(resourceGroup().name)}${vaultNameSuffix}'
+resource vault 'Microsoft.KeyVault/vaults@2021-06-01-preview' existing = {
+  name: vaultName
+}
+var vaultid = vault.id
+var vaulturi = vault.properties.vaultUri
+var certificateUrl = '${vaulturi}secrets/ftscert/eb5ade83b54d42a0b63c30cd05e2cf38'//Specify key Version
 
 resource vnet 'Microsoft.Network/virtualNetworks@2021-02-01' existing = {
   name: virtualNetworkName
@@ -68,12 +74,6 @@ resource storage 'Microsoft.Storage/storageAccounts@2021-04-01' existing = {
   name: storageAccountName
 }
 var storageUri = storage.properties.primaryEndpoints.blob
-resource vaults 'Microsoft.KeyVault/vaults@2021-06-01-preview' existing = {
-  name: vaultName
-}
-var vaultId = vaults.id
-var vaultUri = vaults.properties.vaultUri
-var certificateUrl = '${vaultUri}secrets/FTSCERT/216d00068f504969924e9f1dc3d99e25'//Specify key Version
 
 resource ppgrp 'Microsoft.Compute/proximityPlacementGroups@2021-04-01' = {
   name:proximityPlacementGroupName
@@ -175,7 +175,7 @@ resource virtualmachine 'Microsoft.Compute/virtualMachines@2021-04-01' = [for i 
       secrets:[
         {
           sourceVault:{
-            id:vaultId
+            id:vaultid
           }
           vaultCertificates:[
             {
@@ -191,7 +191,7 @@ resource virtualmachine 'Microsoft.Compute/virtualMachines@2021-04-01' = [for i 
         {
           lun: 0
           createOption:'Empty'
-          caching:'ReadWrite'
+          caching:'None'
           diskSizeGB:diskSizeGB
           managedDisk:{
             storageAccountType:storageAccountType

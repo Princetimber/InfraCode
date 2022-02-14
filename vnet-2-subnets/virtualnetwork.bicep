@@ -1,21 +1,21 @@
 param nsgSuffix string = 'nsg'
-param natgwSuffix string = 'natgw'
+param natgwSuffix string = 'natgateway'
 param vnetnameSuffix string
 param vnetSettings object = {
   name:'${toLower(resourceGroup().name)}${vnetnameSuffix}'
   location: resourceGroup().location
   addressPrefixes:[
-    //specify virtualNetworks IpAddress Range
+   '60.171.0.0/16' //specify virtualNetworks IpAddress Range
   ]
 }
 param subnets array = [
     {
       name:'subnet1'
-      addressPrefix:''//specify subnet1 IpAddress Range
+      addressPrefix:'60.171.1.0/24'//specify subnet1 IpAddress Range
     }
     {
       name:'subnet2'
-      addressPrefix:''//specify subnet2 IpAddress Range
+      addressPrefix:'60.171.2.0/24'//specify subnet2 IpAddress Range
     }
 
 ]

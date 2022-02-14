@@ -18,7 +18,7 @@ resource keyvaults 'Microsoft.KeyVault/vaults@2021-06-01-preview' = {
   name:vaultname
   location:location
   tags:{
-    DisplayName:'KeyVaults'
+    DisplayName:'Key Vault'
   }
   properties:{
     enabledForDeployment: true

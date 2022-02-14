@@ -1,5 +1,5 @@
 @description('specify storage resource name suffix')
-param namesuffix string = 'stga'
+param namesuffix string
 
 @description('spacify storage account resource skus')
 @allowed([
@@ -45,7 +45,7 @@ var vnetId = vnet.id
 var subnet1id = '${vnetId}/subnets/subnet1'
 var subnet2Id = '${vnetId}/subnets/subnet2'
 var gatewaySubnetId = '${vnetId}/subnets/gatewaySubnet'
-var storageaccountName ='${namesuffix}${uniqueString(resourceGroup().id)}'
+var storageaccountName ='${uniqueString(resourceGroup().id)}${namesuffix}'
 
 resource storageaccounts 'Microsoft.Storage/storageAccounts@2021-04-01' = if (stgNewOrExisting == 'new') {
   name:storageaccountName
