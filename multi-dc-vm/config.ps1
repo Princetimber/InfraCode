@@ -40,7 +40,7 @@ if(!$virtualDisks){
 }else {
   Write-Verbose -Message "virtualDisk already exists." -Verbose
 }
-$volume = Get-Volume | Where-Object DriveLetter -EQ E
+$volume = Get-Volume | Where-Object DriveLetter -EQ F
 if(!$volume){
   try {
     $diskNumber = (Get-VirtualDisk |Where-Object FriendlyName -Like VirtualHD | Get-Disk).Number
@@ -48,11 +48,11 @@ if(!$volume){
     $param = @{
     DiskNumber = $diskNumber
     UseMaximumSize = $true
-    DriveLetter = 'e'
+    DriveLetter = 'F'
   }
     New-Partition @param
     $param = @{
-      DriveLetter = 'e'
+      DriveLetter = 'F'
       Filesystem = 'NTFS'
       NewFileSystemLabel = 'Database'
     }
@@ -66,10 +66,10 @@ if(!$volume){
 }
 $names = @('Logs','NTDS','SYSVOL')
 foreach($n in $names){
-  $testPath = Test-Path -LiteralPath (Join-Path -Path E:\ -ChildPath $n)
+  $testPath = Test-Path -LiteralPath (Join-Path -Path F:\ -ChildPath $n)
   if(!$testPath){
     try {
-      New-Item -Name $n -Path E:\ -ItemType Directory | ForEach-Object{$_.Attributes = 'hidden'}
+      New-Item -Name $n -Path F:\ -ItemType Directory | ForEach-Object{$_.Attributes = 'hidden'}
     }
     catch {
       Write-Error -Message "Path Exists"
