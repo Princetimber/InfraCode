@@ -45,13 +45,12 @@ param proximityPlacementGroupNameSuffix string = 'ppgrp'
 param virtualNetworkNameSuffix string = 'vnet'
 param storageAccountNamePreffix string = 'stga'
 param vaultNameSuffix string = 'keystore'
-param networkInterfaceNameSuffix string = '-nic'
+param networkInterfaceNameSuffix string = 'vnic'
 param licenseType string = 'Windows_Server'
 param publisher string = 'MicrosoftWindowsServer'
 param offer string = 'WindowsServer'
 param virtualMachineExtensionCustomScriptUri string
-
-var location = resourceGroup().location
+param location string = resourceGroup().location
 var virtualMachineCountRange = range(0,virtualmachineCount)
 var availabilitySetName = '${toLower(resourceGroup().name)}${availabilitySetNameSuffix}'
 var proximityPlacementGroupName = '${toLower(resourceGroup().name)}${proximityPlacementGroupNameSuffix}'
