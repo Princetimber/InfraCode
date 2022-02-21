@@ -1,10 +1,11 @@
 param natgatewayNamesuffix string
-param pubIpNameSuffix string 
+param location string = resourceGroup().location
+param pubIpNameSuffix string
 var pubIpName = '${toLower(resourceGroup().name)}${pubIpNameSuffix}'
 var natgatewayName = '${toLower(resourceGroup().name)}${natgatewayNamesuffix}'
 resource pubIp 'Microsoft.Network/publicIPAddresses@2021-02-01' = {
   name:pubIpName
-  location: resourceGroup().location
+  location: location
   sku:{
     name:'Standard'
   }
@@ -16,7 +17,7 @@ resource pubIp 'Microsoft.Network/publicIPAddresses@2021-02-01' = {
 }
 resource natgateways 'Microsoft.Network/natGateways@2021-02-01' = {
   name:natgatewayName
-  location: resourceGroup().location
+  location: location
   sku:{
     name:'Standard'
   }

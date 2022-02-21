@@ -1,8 +1,8 @@
 param nsgNameSuffix string = 'nsg'
 param sourceAddressPrefixes array
 param destinationAddressPrefix string
+param location string = resourceGroup().location
 var nsgname = '${toLower(resourceGroup().name)}${nsgNameSuffix}'
-var location = resourceGroup().location
 var allowRdpInbound = '${nsgname}/Allow_Rdp_Inbound'
 var allowWinRMInbound = '${nsgname}/Allow_WinRM_Inbound'
 var allowHttpsInbound = '${nsgname}/Allow_https_Inbound'

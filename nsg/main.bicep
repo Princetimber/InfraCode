@@ -1,6 +1,8 @@
+param location string = resourceGroup().location
 module nsgdeploy 'nsg.bicep' = {
   name: 'nsgdeploy'
   params: {
+    location: location
     destinationAddressPrefix:'63.31.74.157'//specify PublicIpAddress
     sourceAddressPrefixes:[
       '10.0.1.0/24'

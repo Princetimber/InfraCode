@@ -1,6 +1,8 @@
+param location string = resourceGroup().location
 module vnetgw 'vnet-gateway.bicep' = {
   name: 'DeployVnetgateways'
   params:{
+    location: location
     vnetGatewayNameSuffix: 'vpngateway'
     vnetNameSuffix: 'vnet'
     pubIpAddressname:'pubip'
