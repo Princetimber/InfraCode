@@ -22,7 +22,7 @@ resource bastionsubnet 'Microsoft.Network/virtualNetworks/subnets@2021-02-01' = 
 }
 resource pubIp 'Microsoft.Network/publicIPAddresses@2021-02-01' = {
   name:'PubIpAddress'
-  location: location
+  location: resourceGroup().location
   properties:{
     publicIPAddressVersion: 'IPv4'
     publicIPAllocationMethod:'Static'
