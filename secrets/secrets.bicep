@@ -5,23 +5,24 @@ param secretname string
 @secure()
 param secretvalue string
 
+param exp int
+param nbf int
 param keyvaultnamesuffix string = 'keystore'
-var keyvaultname = '${toLower(resourceGroup().name)}${keyvaultnamesuffix}'
-resource keyvault 'Microsoft.KeyVault/vaults@2021-06-01-preview' existing = {
-  name: keyvaultname
-}
 
-resource secrets 'Microsoft.KeyVault/vaults/secrets@2021-06-01-preview' = {
-  name:secretname
-  properties:{
+var keyvaultname = '${toLower(resourceGroup().name)}${keyvaultnamesuffix}'
+resource keyvault 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
+  name:keyvaultname
+}
+resource secrets 'Microsoft.KeyVault/vaults/secrets@2022-07-01' = {
+  name: secretname
+  properties: {
     attributes:{
-      enabled: true
-      nbf:63800605009
-      exp:1664918862
+      enabled:true
+       exp: exp// not actual values
+       nbf: nbf//not actual values
     }
     value:secretvalue
   }
   parent:keyvault
 }
 output name string = secrets.name
-

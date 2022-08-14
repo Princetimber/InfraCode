@@ -36,8 +36,8 @@ param vnetNameSuffix string = 'vnet'
   'existing'
 ])
 param stgNewOrExisting string = 'new'
+param location string = resourceGroup().location
 var vnetname = '${toLower(resourceGroup().name)}${vnetNameSuffix}'
-var location = resourceGroup().location
 resource vnet 'Microsoft.Network/virtualNetworks@2021-02-01' existing = {
   name: vnetname
 }

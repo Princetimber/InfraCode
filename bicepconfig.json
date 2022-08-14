@@ -51,8 +51,56 @@
 				},
 				"use-stable-vm-image": {
 					"level": "warning"
+				},
+				"artifacts-parameters":{
+					"level": "warning"
+				},
+				"explicit-values-for-loc-params":{
+					"level": "warning"
+				},
+				"no-hardcoded-location":{
+					"level": "warning"
+				},
+				"use-stable-resource-identifiers":{
+					"level": "warning"
+				},
+				"no-loc-expr-outside-params":{
+					"level": "warning"
+				},
+				"no-unused-existing-resources":{
+					"level": "warning"
+				},
+				"secure-secrets-in-params":{
+					"level": "error"
+				},
+				"prefer-unquoted-property-names":{
+					"level": "warning"
+				},
+				"protect-commandtoexecute-secrets":{
+					"level": "warning"
+				},
+				"max-params":{
+					"level": "error"
+				},
+				"max-resources":{
+					"level": "error"
+				},
+				"max-variables":{
+					"level": "error"
+				},
+				"max-outputs":{
+					"level": "error"
 				}
 			}
 		}
+	},
+	"cloud": {
+		"credentialPrecedence": [
+			"AzureCLI",
+			"AzurePowerShell",
+			"VisualStudioCode",
+			"Environment"
+		],
+		"currentProfile": "AzureCloud"
 	}
 }

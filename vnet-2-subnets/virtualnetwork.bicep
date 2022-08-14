@@ -1,9 +1,10 @@
 param nsgSuffix string = 'nsg'
 param natgwSuffix string = 'natgateway'
 param vnetnameSuffix string
+param location string = resourceGroup().location
 param vnetSettings object = {
   name:'${toLower(resourceGroup().name)}${vnetnameSuffix}'
-  location: resourceGroup().location
+  location:location
   addressPrefixes:[
    '60.171.0.0/16' //specify virtualNetworks IpAddress Range
   ]
